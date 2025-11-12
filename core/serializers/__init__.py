@@ -1,0 +1,5 @@
+from core.serializers.user import UserSerializer
+from core.serializers.skin_condition import SkinConditionSerializer
+from core.serializers.diagnosis_request import DiagnosisRequestSerializer
+from core.serializers.diagnosis_result import DiagnosisResultSerializer
+from core.serializers.medical_verification import MedicalVerificationSerializer
