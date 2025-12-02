@@ -6,4 +6,4 @@ from core.models import SkinCondition
 class SkinConditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkinCondition
-        fields = '__all__'
+        fields = ['id', 'name', 'code', 'description']

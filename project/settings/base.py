@@ -11,6 +11,7 @@ DEBUG = env.bool('DEBUG', True)
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    '*'
 ]
 
 DJANGO_APPS = [
@@ -25,6 +26,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'rest_framework_simplejwt',
+    'corsheaders',
 ]
 
 LOCAL_APPS = ['core.apps.CoreConfig']
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -80,6 +84,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Vite dev server
+    "http://127.0.0.1:5173",
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 
 LANGUAGE_CODE = 'ru'

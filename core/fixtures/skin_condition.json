@@ -1,0 +1,15 @@
+[
+  {"model": "core.skincondition", "pk": 1, "fields": {"code": "ACNE", "name": "Акне и розацеа"}},
+  {"model": "core.skincondition", "pk": 2, "fields": {"code": "BCC", "name": "Актинический кератоз / базалиома и др."}},
+  {"model": "core.skincondition", "pk": 3, "fields": {"code": "ATOPIC", "name": "Атопический дерматит"}},
+  {"model": "core.skincondition", "pk": 4, "fields": {"code": "BULLOUS", "name": "Буллёзные заболевания"}},
+  {"model": "core.skincondition", "pk": 5, "fields": {"code": "ECZEMA", "name": "Экзема"}},
+  {"model": "core.skincondition", "pk": 6, "fields": {"code": "ATHLETE_FOOT", "name": "Стопа атлета (грибок)"}},
+  {"model": "core.skincondition", "pk": 7, "fields": {"code": "NAIL_FUNGUS", "name": "Грибок ногтей"}},
+  {"model": "core.skincondition", "pk": 8, "fields": {"code": "RINGWORM", "name": "Стригущий лишай"}},
+  {"model": "core.skincondition", "pk": 9, "fields": {"code": "ALOPECIA", "name": "Алопеция"}},
+  {"model": "core.skincondition", "pk": 10, "fields": {"code": "STDS", "name": "Герпес / ВПЧ и другие ИППП"}},
+  {"model": "core.skincondition", "pk": 11, "fields": {"code": "MELANOMA", "name": "Меланома / родинки / невусы"}},
+  {"model": "core.skincondition", "pk": 12, "fields": {"code": "URTICARIA", "name": "Крапивница"}},
+  {"model": "core.skincondition", "pk": 13, "fields": {"code": "HEALTHY", "name": "Здоровая кожа"}}
+]

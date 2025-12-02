@@ -22,6 +22,7 @@ class User(AbstractUser):
 class SkinCondition(models.Model):
     name = models.CharField('Название заболевания', max_length=100)
     code = models.CharField('Код', max_length=10, unique=True, null=True, blank=True)
+    description = models.TextField('описание', blank=True, default='Ничего нет')
 
     class Meta:
         verbose_name = 'Кожное заболевание'
@@ -38,6 +39,7 @@ class DiagnosisRequest(models.Model):
         related_name='diagnosis_requests',
         verbose_name='Пользователь',
     )
+
     image = models.ImageField(
         'Изображение',
         upload_to='images/',
