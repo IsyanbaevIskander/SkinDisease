@@ -1,13 +1,13 @@
 import os
+
 import torch
 import torch.nn as nn
-from torchvision import transforms
 from PIL import Image
+from torchvision import transforms
 
-
-MODEL_PATH = "ivan_laptop_2.pt"
+MODEL_PATH = 'ivan_laptop_2.pt'
 IMG_SIZE = 96
-DEVICE = torch.device("cpu")
+DEVICE = torch.device('cpu')
 SELECTED_CLASSES = [
     'Acne And Rosacea Photos',
     'Actinic Keratosis Basal Cell Carcinoma And Other Malignant Lesions',
@@ -29,26 +29,39 @@ class LightSkinNet(nn.Module):
     def __init__(self, num_classes=16):
         super().__init__()
         self.features = nn.Sequential(
-            nn.Conv2d(3, 32, 3, padding=1), nn.BatchNorm2d(32), nn.ReLU(),
-            nn.Conv2d(32, 32, 3, padding=1), nn.BatchNorm2d(32), nn.ReLU(),
-            nn.MaxPool2d(2), nn.Dropout2d(0.15),
-
-            nn.Conv2d(32, 64, 3, padding=1), nn.BatchNorm2d(64), nn.ReLU(),
-            nn.Conv2d(64, 64, 3, padding=1), nn.BatchNorm2d(64), nn.ReLU(),
-            nn.MaxPool2d(2), nn.Dropout2d(0.25),
-
-            nn.Conv2d(64, 128, 3, padding=1), nn.BatchNorm2d(128), nn.ReLU(),
-            nn.Conv2d(128, 128, 3, padding=1), nn.BatchNorm2d(128), nn.ReLU(),
-            nn.MaxPool2d(2), nn.Dropout2d(0.35),
-
-            nn.Conv2d(128, 256, 3, padding=1), nn.BatchNorm2d(256), nn.ReLU(),
-            nn.Conv2d(256, 256, 3, padding=1), nn.BatchNorm2d(256), nn.ReLU(),
+            nn.Conv2d(3, 32, 3, padding=1),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, 3, padding=1),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Dropout2d(0.15),
+            nn.Conv2d(32, 64, 3, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, 3, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Dropout2d(0.25),
+            nn.Conv2d(64, 128, 3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.Conv2d(128, 128, 3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Dropout2d(0.35),
+            nn.Conv2d(128, 256, 3, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.Conv2d(256, 256, 3, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
             nn.AdaptiveAvgPool2d(1),
         )
-        self.classifier = nn.Sequential(
-            nn.Dropout(0.5),
-            nn.Linear(256, num_classes)
-        )
+        self.classifier = nn.Sequential(nn.Dropout(0.5), nn.Linear(256, num_classes))
 
     def forward(self, x):
         x = self.features(x)
@@ -57,12 +70,13 @@ class LightSkinNet(nn.Module):
         return x
 
 
-predict_tfms = transforms.Compose([
-    transforms.Resize((IMG_SIZE, IMG_SIZE)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                         std=[0.229, 0.224, 0.225]),
-])
+predict_tfms = transforms.Compose(
+    [
+        transforms.Resize((IMG_SIZE, IMG_SIZE)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ]
+)
 
 
 def load_model(model_path, num_classes=16):
@@ -70,7 +84,7 @@ def load_model(model_path, num_classes=16):
     model.load_state_dict(torch.load(model_path, map_location=DEVICE))
     model.to(DEVICE)
     model.eval()
-    print(f"✅ Модель загружена: {model_path}")
+    print(f'✅ Модель загружена: {model_path}')
     return model
 
 
@@ -81,15 +95,15 @@ def predict_skin_disease(image_path: str):
     """
     model_path = 'ivan_laptop_2.pt'
     if not os.path.exists(image_path):
-        print(f"❌ Файл не найден: {image_path}")
+        print(f'❌ Файл не найден: {image_path}')
         return None, 0.0, None
 
     # Загружаем модель только один раз
     global _loaded_model
-    if "_loaded_model" not in globals():
+    if '_loaded_model' not in globals():
         _loaded_model = load_model(model_path, num_classes=len(SELECTED_CLASSES))
 
-    image = Image.open(image_path).convert("RGB")
+    image = Image.open(image_path).convert('RGB')
     input_tensor = predict_tfms(image).unsqueeze(0).to(DEVICE)
 
     with torch.no_grad():

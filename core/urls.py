@@ -1,8 +1,6 @@
-from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from core import views
-from core.views.auth import CustomTokenObtainPairView
 
 app_name = 'core'
 

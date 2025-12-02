@@ -33,8 +33,4 @@ class DiagnosisRequestView(ModelViewSet):
         condition = SkinCondition.objects.filter(id=class_id).first()
 
         # Создаем результат диагностики
-        DiagnosisResult.objects.create(
-            request=request_obj,
-            condition=condition,
-            confidence=confidence
-        )
+        DiagnosisResult.objects.create(request=request_obj, condition=condition, confidence=confidence)

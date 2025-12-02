@@ -9,10 +9,7 @@ SECRET_KEY = 'django-insecure-8@$5z8fnuit&rq^#3n7ibtc41emt35kr&gh!g*3nfwb9$d+sp^
 
 DEBUG = env.bool('DEBUG', True)
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    '*'
-]
+ALLOWED_HOSTS = ['127.0.0.1', '*']
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -86,8 +83,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vite dev server
-    "http://127.0.0.1:5173",
+    'http://localhost:5173',  # Vite dev server
+    'http://127.0.0.1:5173',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
