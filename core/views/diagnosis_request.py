@@ -1,3 +1,5 @@
+from django.db.models import QuerySet
+from rest_framework.serializers import Serializer
 from rest_framework.viewsets import ModelViewSet
 
 from core.models import DiagnosisRequest, DiagnosisResult, SkinCondition
@@ -9,7 +11,7 @@ class DiagnosisRequestView(ModelViewSet):
     queryset = DiagnosisRequest.objects.all()
     serializer_class = DiagnosisRequestSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         user = self.request.user
         qs = super().get_queryset()
         if not hasattr(user, 'role'):
@@ -22,7 +24,7 @@ class DiagnosisRequestView(ModelViewSet):
 
         return qs.none()
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: Serializer) -> None:
         # Создаём запрос
         request_obj = serializer.save(user=self.request.user)
 

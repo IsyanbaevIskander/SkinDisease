@@ -26,7 +26,7 @@ SELECTED_CLASSES = [
 
 
 class LightSkinNet(nn.Module):
-    def __init__(self, num_classes=16):
+    def __init__(self, num_classes: int = 16) -> None:
         super().__init__()
         self.features = nn.Sequential(
             nn.Conv2d(3, 32, 3, padding=1),
@@ -63,7 +63,7 @@ class LightSkinNet(nn.Module):
         )
         self.classifier = nn.Sequential(nn.Dropout(0.5), nn.Linear(256, num_classes))
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.features(x)
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
@@ -79,23 +79,21 @@ predict_tfms = transforms.Compose(
 )
 
 
-def load_model(model_path, num_classes=16):
+def load_model(model_path: str, num_classes: int = 16) -> LightSkinNet:
     model = LightSkinNet(num_classes=num_classes)
     model.load_state_dict(torch.load(model_path, map_location=DEVICE))
     model.to(DEVICE)
     model.eval()
-    print(f'✅ Модель загружена: {model_path}')
     return model
 
 
-def predict_skin_disease(image_path: str):
+def predict_skin_disease(image_path: str) -> tuple:
     """
     Возвращает:
     (predicted_class_name: str, confidence_percent: float, class_idx: int)
     """
     model_path = 'ivan_laptop_2.pt'
     if not os.path.exists(image_path):
-        print(f'❌ Файл не найден: {image_path}')
         return None, 0.0, None
 
     # Загружаем модель только один раз
@@ -114,7 +112,4 @@ def predict_skin_disease(image_path: str):
     confidence = confidence.item() * 100
 
     class_idx = class_idx.item() + 1
-    predicted_class = SELECTED_CLASSES[class_idx]
-    print(class_idx, predicted_class)
-
     return class_idx, confidence

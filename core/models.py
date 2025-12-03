@@ -16,7 +16,7 @@ class User(AbstractUser):
         verbose_name_plural = 'Пользователи'
 
     def __str__(self) -> str:
-        return f'{self.username} ({self.get_role_display()})'
+        return f'{self.last_name} {self.first_name}'
 
 
 class SkinCondition(models.Model):
